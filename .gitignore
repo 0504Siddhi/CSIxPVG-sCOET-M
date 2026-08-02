@@ -1,0 +1,33 @@
+# Dependency directories
+node_modules/
+**/node_modules/
+
+# Next.js build output
+.next/
+**/client/.next/
+out/
+**/client/out/
+
+# Server build output
+dist/
+**/server/dist/
+build/
+**/server/build/
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/server/.env
+**/client/.env.local
+
+# TS compile/watch state logs
+*.tsbuildinfo
+*.log
+ts-node-dev/
+
+# OS metadata files
+.DS_Store
+Thumbs.db
