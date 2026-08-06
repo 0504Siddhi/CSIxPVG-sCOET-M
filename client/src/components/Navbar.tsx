@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiHome, FiInfo, FiFileText, FiAward, FiCalendar, FiLogIn, FiUserCheck, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiInfo, FiFileText, FiAward, FiCalendar, FiLogIn, FiUserCheck, FiLogOut, FiMenu, FiX, FiUsers } from 'react-icons/fi';
 
 interface UserInfo {
   name: string;
@@ -60,8 +60,9 @@ export default function Navbar() {
     { name: 'Home', path: '/', icon: <FiHome /> },
     { name: 'About Us', path: '#about', icon: <FiInfo /> },
     { name: 'Recent News', path: '#news', icon: <FiFileText /> },
-    { name: 'Testimonials', path: '#testimonials', icon: <FiAward /> },
-    { name: 'Events', path: '#events', icon: <FiCalendar /> }
+    { name: 'Events', path: '#events', icon: <FiCalendar /> },
+    { name: 'Team', path: '#team', icon: <FiUsers /> },
+    { name: 'Testimonials', path: '#testimonials', icon: <FiAward /> }
   ];
 
   return (
@@ -77,17 +78,14 @@ export default function Navbar() {
         }`}
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 md:gap-3">
-          <div className="flex items-center gap-1.5">
-            <div className="w-10 h-10 rounded-full overflow-hidden border border-cyan-400/30 flex items-center justify-center bg-black/40">
-              <img src="/logo.png" alt="PVG Logo" className="w-full h-full object-contain" />
-            </div>
-            <div className="w-10 h-10 rounded-full overflow-hidden border border-cyan-400/30 flex items-center justify-center bg-black/40">
-              <img src="/csi_logo.png" alt="CSI Logo" className="w-full h-full object-contain" />
+        <Link href="/" className="flex items-center gap-2.5 md:gap-3">
+          <div className="relative">
+            <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-cyan-400/40 flex items-center justify-center bg-black/50 shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300">
+              <img src="/csi_logo.png" alt="CSI Logo" className="w-[85%] h-[85%] object-contain" />
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="cyber-font text-cyan-400 text-neon-cyan text-[11px] md:text-sm font-black tracking-wider leading-none">
+            <span className="cyber-font text-cyan-400 text-neon-cyan text-xs md:text-sm font-black tracking-wider leading-none">
               CSI PVG COET
             </span>
             <span className="text-[7px] md:text-[9px] text-gray-500 font-mono tracking-widest uppercase mt-0.5 leading-none">

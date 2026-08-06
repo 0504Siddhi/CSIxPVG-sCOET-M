@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { FiArrowRight, FiGithub, FiLinkedin, FiCalendar, FiMapPin, FiCheck } from 'react-icons/fi';
+import { FiArrowRight, FiGithub, FiLinkedin, FiCalendar, FiMapPin, FiCheck, FiCpu, FiUsers, FiZap, FiTarget } from 'react-icons/fi';
 import Loader from '@/components/Loader';
 import NetworkGlobe from '@/components/NetworkGlobe';
 
@@ -48,11 +48,146 @@ interface TestimonialItem {
 
 const BACKEND_URL = 'http://localhost:5000';
 
+const FALLBACK_TEAM: TeamMember[] = [
+  {
+    _id: 'team_001',
+    name: 'Dr. S. H. Patil',
+    designation: 'Faculty Coordinator',
+    category: 'coordinator',
+    department: 'Computer Department',
+    year: 'Staff',
+    photoUrl: '/team/page_4_img_1.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_002',
+    name: 'Prof. U. M. Kalshetti',
+    designation: 'HOD (Computer Department)',
+    category: 'coordinator',
+    department: 'Computer Department',
+    year: 'Staff',
+    photoUrl: '/placeholder.png',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_003',
+    name: 'Gauri Kharad',
+    designation: 'President',
+    category: 'president',
+    department: 'Computer Department',
+    year: 'B.E',
+    photoUrl: '/team/page_3_img_1.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_004',
+    name: 'Pratika Bankar',
+    designation: 'Vice President',
+    category: 'vice-president',
+    department: 'Computer Department',
+    year: 'T.E',
+    photoUrl: '/team/page_5_img_1.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_005',
+    name: 'Nehal Rawool',
+    designation: 'Technical Head',
+    category: 'technical',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_6_img_1.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_006',
+    name: 'Vedant Patil',
+    designation: 'Technical Head',
+    category: 'technical',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_6_img_2.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_007',
+    name: 'Shreyasi Jadhav',
+    designation: 'Design Head',
+    category: 'design',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_2_img_1.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_008',
+    name: 'Sakshi Thange',
+    designation: 'Design Head',
+    category: 'design',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_2_img_2.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_009',
+    name: 'Salil Bokil',
+    designation: 'Event & Publicity Head',
+    category: 'publicity',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_1_img_1.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_010',
+    name: 'Bhumika Gote',
+    designation: 'Event & Publicity Head',
+    category: 'publicity',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_1_img_2.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_011',
+    name: 'Meet Shrishrimal',
+    designation: 'Finance Head',
+    category: 'finance',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_7_img_1.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  },
+  {
+    _id: 'team_012',
+    name: 'Om Kashid',
+    designation: 'Finance Head',
+    category: 'finance',
+    department: 'Computer Department',
+    year: 'S.Y Btech',
+    photoUrl: '/team/page_7_img_2.jpeg',
+    linkedinUrl: 'https://linkedin.com',
+    githubUrl: 'https://github.com'
+  }
+];
+
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   
-  // Dynamic state loaded from backend
-  const [team, setTeam] = useState<TeamMember[]>([]);
+  // Dynamic state loaded from backend with robust local fallbacks
+  const [team, setTeam] = useState<TeamMember[]>(FALLBACK_TEAM);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [news, setNews] = useState<NewsItem[]>([]);
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>([]);
@@ -61,20 +196,38 @@ export default function Home() {
   const [registeredEvents, setRegisteredEvents] = useState<{ [key: string]: boolean }>({});
 
   const { scrollY } = useScroll();
-  const yBgGrid = useTransform(scrollY, [0, 3000], [0, -300]);
-  const yGlobe = useTransform(scrollY, [0, 1000], [0, 150]);
-  const yAbout = useTransform(scrollY, [0, 2000], [0, -80]);
-  const yNews = useTransform(scrollY, [200, 2500], [0, -60]);
-  const yEvents = useTransform(scrollY, [500, 3000], [0, -50]);
-  const yTestimonials = useTransform(scrollY, [800, 3500], [0, -40]);
-  const yTeam = useTransform(scrollY, [1200, 4500], [0, -30]);
+  const yBgGrid = useTransform(scrollY, [0, 3000], [0, -400]);
+  const yGlobe = useTransform(scrollY, [0, 1000], [0, 180]);
+  const yAbout = useTransform(scrollY, [0, 2000], [0, -100]);
+  const yNews = useTransform(scrollY, [200, 2500], [0, -80]);
+  const yEvents = useTransform(scrollY, [500, 3000], [0, -60]);
+  const yTestimonials = useTransform(scrollY, [800, 3500], [0, -50]);
+  const yTeam = useTransform(scrollY, [1200, 4500], [0, -40]);
+
+  // Extraordinary Parallax scroll-linked effects
+  const scaleHero = useTransform(scrollY, [0, 1000], [1, 0.90]);
+  const rotateHero = useTransform(scrollY, [0, 1000], [0, -2.5]);
+  const opacityHero = useTransform(scrollY, [0, 700], [1, 0]);
+  const skewHero = useTransform(scrollY, [0, 1000], [0, 2]);
+
+  const rotateAbout = useTransform(scrollY, [100, 1500], [-1.5, 1.5]);
+  const scaleAbout = useTransform(scrollY, [100, 1500], [0.98, 1.02]);
+  const skewAbout = useTransform(scrollY, [100, 1500], [1, -1]);
+
+  const scaleNews = useTransform(scrollY, [200, 2000], [0.97, 1.01]);
+  const rotateNews = useTransform(scrollY, [200, 2000], [1, -0.5]);
 
   useEffect(() => {
     // Fetch data from backend
     const fetchData = async () => {
       try {
         const teamRes = await fetch(`${BACKEND_URL}/api/public/team`);
-        if (teamRes.ok) setTeam(await teamRes.json());
+        if (teamRes.ok) {
+          const teamData = await teamRes.json();
+          if (Array.isArray(teamData) && teamData.length > 0) {
+            setTeam(teamData);
+          }
+        }
 
         const eventsRes = await fetch(`${BACKEND_URL}/api/public/events`);
         if (eventsRes.ok) setEvents(await eventsRes.json());
@@ -208,53 +361,89 @@ export default function Home() {
           <div className="glow-aura w-[600px] h-[600px] bg-purple-500/10 bottom-[20%] right-[-10%]" />
 
           {/* 1. HERO SECTION */}
-          <section className="relative min-h-screen flex items-center justify-center z-10 px-6 pt-16">
+          <section className="relative min-h-screen flex flex-col items-center justify-center z-10 px-6 pt-24 pb-12 overflow-hidden">
             <motion.div style={{ y: yGlobe }} className="absolute inset-0 z-0 pointer-events-none">
               <NetworkGlobe />
             </motion.div>
-            <div className="max-w-5xl mx-auto text-center relative z-20 flex flex-col items-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-                className="mb-6 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-sm text-cyan-400 font-mono text-sm tracking-widest uppercase hover:border-cyan-400/40 transition-colors"
-              >
-                Computer Society of India Student Chapter
-              </motion.div>
+            
+            {/* Top Flyer Badges */}
+            <motion.div 
+              style={{ y: yGlobe, opacity: opacityHero }}
+              className="flex justify-between items-center w-full max-w-5xl mb-8 relative z-20"
+            >
+              {/* PVG Badge */}
+              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border border-white/20 flex items-center justify-center bg-white shadow-[0_0_15px_rgba(255,255,255,0.15)]">
+                <img src="/logo.png" alt="PVG Seal" className="w-[82%] h-[82%] object-contain rounded-full" />
+              </div>
+              {/* CSI Badge */}
+              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border border-cyan-500/30 flex items-center justify-center bg-white shadow-[0_0_15px_rgba(0,240,255,0.25)] animate-pulse">
+                <img src="/csi_logo.png" alt="CSI Logo" className="w-[82%] h-[82%] object-contain rounded-full" />
+              </div>
+            </motion.div>
+
+            {/* Parallax Animating Wrapper */}
+            <motion.div
+              style={{
+                y: yGlobe,
+                scale: scaleHero,
+                rotate: rotateHero,
+                opacity: opacityHero,
+                skewX: skewHero
+              }}
+              className="max-w-5xl mx-auto text-center relative z-20 flex flex-col items-center"
+            >
+              <h1 className="cyber-font text-3xl sm:text-5xl md:text-6xl font-black tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-200 to-cyan-300 pb-2">
+                PUNE VIDYARTHI GRIHA&apos;S
+              </h1>
               
-              <motion.h1
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className="cyber-font text-5xl sm:text-7xl md:text-[96px] font-black text-white tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-purple-400 pb-2"
-              >
-                PVG COET PUNE
-              </motion.h1>
+              <h2 className="text-sm sm:text-base md:text-lg font-bold text-white tracking-[0.2em] mt-2 mb-1 max-w-3xl uppercase font-sans">
+                College of Engineering, Technology & Management, Pune
+              </h2>
+              
+              <p className="text-[10px] sm:text-xs text-cyan-300/80 font-mono tracking-wider italic mb-8 max-w-2xl px-4">
+                (An Autonomous Institute Affiliated to Savitribai Phule Pune University, NAAC Grade &apos;A&apos; Cycle-3)
+              </p>
 
-              <motion.h2
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                className="cyber-font mt-6 text-xl sm:text-3xl md:text-[38px] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 font-bold tracking-widest"
-              >
-                Innovate • Inspire • Integrate
-              </motion.h2>
+              {/* Glowing High-Tech Border Box */}
+              <div className="my-6 px-8 py-4 rounded-2xl border-2 border-cyan-500/40 bg-cyan-950/20 backdrop-blur-md shadow-[0_0_25px_rgba(0,240,255,0.25),inset_0_0_15px_rgba(0,240,255,0.1)] relative">
+                <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-4 bg-cyan-400 rounded-r" />
+                <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 h-4 bg-cyan-400 rounded-l" />
+                <h3 className="cyber-font text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-[0.2em] text-white">
+                  CSI STUDENT CHAPTER
+                </h3>
+                <p className="text-[10px] md:text-xs text-cyan-400 tracking-[0.4em] font-mono mt-1.5 uppercase">
+                  — PVG COET —
+                </p>
+              </div>
 
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.7 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="mt-8 max-w-3xl text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed font-sans"
-              >
-                Welcome to the digital nervous system of PVG COET&apos;s elite technology community. We craft, code, and drive collaboration between humans and systems to solve real-world complexities.
-              </motion.p>
+              {/* Tagline */}
+              <div className="flex gap-4 sm:gap-6 justify-center items-center font-mono font-black tracking-[0.3em] text-xs sm:text-sm md:text-base mt-6 mb-2">
+                <span className="text-purple-400 hover:text-purple-300 transition-colors">CODE.</span>
+                <span className="text-cyan-400 hover:text-cyan-300 transition-colors">CONNECT.</span>
+                <span className="text-blue-400 hover:text-blue-300 transition-colors">CREATE.</span>
+              </div>
 
-              <motion.div
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="mt-10 flex flex-wrap gap-4 justify-center"
-              >
+              {/* Core Values Row */}
+              <div className="flex flex-wrap justify-center items-center gap-y-3 gap-x-4 md:gap-x-8 mt-6 py-4 px-6 border-t border-b border-white/5 max-w-4xl w-full">
+                <div className="flex items-center gap-2 text-xs md:text-sm font-mono tracking-widest text-cyan-300 hover:text-cyan-200 transition-colors">
+                  <FiCpu className="text-cyan-400 w-4 h-4 animate-pulse" /> INNOVATE
+                </div>
+                <div className="hidden sm:block w-[1px] h-4 bg-white/10" />
+                <div className="flex items-center gap-2 text-xs md:text-sm font-mono tracking-widest text-purple-300 hover:text-purple-200 transition-colors">
+                  <FiUsers className="text-purple-400 w-4 h-4" /> COLLABORATE
+                </div>
+                <div className="hidden sm:block w-[1px] h-4 bg-white/10" />
+                <div className="flex items-center gap-2 text-xs md:text-sm font-mono tracking-widest text-pink-300 hover:text-pink-200 transition-colors">
+                  <FiZap className="text-pink-400 w-4 h-4" /> INSPIRE
+                </div>
+                <div className="hidden sm:block w-[1px] h-4 bg-white/10" />
+                <div className="flex items-center gap-2 text-xs md:text-sm font-mono tracking-widest text-yellow-400 hover:text-yellow-300 transition-colors">
+                  <FiTarget className="text-yellow-500 w-4 h-4" /> IMPACT
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="mt-10 flex flex-wrap gap-4 justify-center">
                 <a
                   href="/register"
                   className="px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium rounded-full shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all duration-300 transform hover:scale-105 flex items-center gap-2 text-base cyber-font"
@@ -267,8 +456,8 @@ export default function Home() {
                 >
                   Explore Chapter
                 </a>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
             
             {/* Scroll Indicator */}
             <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-65 flex flex-col items-center">
@@ -278,7 +467,16 @@ export default function Home() {
           </section>
 
           {/* 2. ABOUT US SECTION */}
-          <motion.section id="about" style={{ y: yAbout }} className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+          <motion.section 
+            id="about" 
+            style={{ 
+              y: yAbout,
+              rotate: rotateAbout,
+              scale: scaleAbout,
+              skewX: skewAbout
+            }} 
+            className="relative z-10 py-24 px-6 max-w-7xl mx-auto"
+          >
             {/* Holographic Scroll Tunnel Visuals */}
             <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[300px] border border-cyan-500/5 rounded-full pointer-events-none skew-y-12 animate-pulse" />
             
@@ -340,7 +538,15 @@ export default function Home() {
           </motion.section>
 
           {/* 3. RECENT NEWS SECTION */}
-          <motion.section id="news" style={{ y: yNews }} className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+          <motion.section 
+            id="news" 
+            style={{ 
+              y: yNews,
+              scale: scaleNews,
+              rotate: rotateNews
+            }} 
+            className="relative z-10 py-24 px-6 max-w-7xl mx-auto"
+          >
             <div className="text-center mb-16">
               <span className="text-cyan-400 font-mono text-sm uppercase tracking-widest block mb-2">// Global Feed</span>
               <h2 className="cyber-font text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-wide">

@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { connectDB } from './config/db';
@@ -15,8 +17,6 @@ import * as adminController from './controllers/adminController';
 // Import middlewares
 import { authenticateToken, verifyAdmin } from './middleware/auth';
 import { upload } from './middleware/upload';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
