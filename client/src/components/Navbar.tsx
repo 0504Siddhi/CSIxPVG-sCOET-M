@@ -4,65 +4,62 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiHome, FiInfo, FiFileText, FiAward, FiCalendar, FiLogIn, FiUserCheck, FiLogOut, FiMenu, FiX, FiUsers } from 'react-icons/fi';
-
-interface UserInfo {
-  name: string;
-  email: string;
-  role: string;
-}
+import { FiHome, FiInfo, FiFileText, FiAward, FiCalendar, FiMenu, FiX, FiUsers } from 'react-icons/fi';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState<UserInfo | null>(null);
+  const [activeSection, setActiveSection] = useState<string>('');
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Monitor scroll for glass effect adjustments
+  // Monitor scroll for glass effect adjustments and active section highlighting
   useEffect(() => {
+    const sectionIds = ['about', 'news', 'events', 'testimonials', 'team'];
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 25);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  // Retrieve user info from localStorage to adjust navigation links dynamically
-  const fetchUser = () => {
-    try {
-      const stored = localStorage.getItem('csi_user');
-      if (stored) {
-        setUser(JSON.parse(stored));
-      } else {
-        setUser(null);
+      if (pathname !== '/') {
+        setActiveSection('');
+        return;
       }
-    } catch (e) {
-      setUser(null);
-    }
-  };
 
-  useEffect(() => {
-    fetchUser();
-    // Watch for custom login event or local storage changes
-    window.addEventListener('login_changed', fetchUser);
-    return () => window.removeEventListener('login_changed', fetchUser);
-  }, []);
+      if (window.scrollY < 200) {
+        setActiveSection('');
+        return;
+      }
 
-  const handleLogout = () => {
-    localStorage.removeItem('csi_token');
-    localStorage.removeItem('csi_user');
-    setUser(null);
-    window.dispatchEvent(new Event('login_changed'));
-    window.location.href = '/';
-  };
+      const scrollPosition = window.scrollY + 250;
+      let current = '';
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            current = `#${id}`;
+          }
+        }
+      }
+
+      if (current) {
+        setActiveSection(current);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pathname]);
 
   const navItems = [
     { name: 'Home', path: '/', icon: <FiHome /> },
     { name: 'About Us', path: '#about', icon: <FiInfo /> },
     { name: 'Recent News', path: '#news', icon: <FiFileText /> },
     { name: 'Events', path: '#events', icon: <FiCalendar /> },
-    { name: 'Team', path: '#team', icon: <FiUsers /> },
-    { name: 'Testimonials', path: '#testimonials', icon: <FiAward /> }
+    { name: 'Testimonials', path: '#testimonials', icon: <FiAward /> },
+    { name: 'Team', path: '#team', icon: <FiUsers /> }
   ];
 
   return (
@@ -98,14 +95,16 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => {
             const isAnchor = item.path.startsWith('#');
-            const isActive = isAnchor ? false : pathname === item.path;
+            const isActive = isAnchor 
+              ? activeSection === item.path 
+              : (pathname === item.path && activeSection === '');
 
             return (
               <a
                 key={item.name}
                 href={item.path}
                 className={`relative flex items-center gap-1.5 text-xs uppercase tracking-wider font-mono transition-all duration-300 hover:text-cyan-400 ${
-                  isActive ? 'text-cyan-400' : 'text-gray-300'
+                  isActive ? 'text-cyan-400 font-semibold' : 'text-gray-300'
                 }`}
               >
                 {item.icon}
@@ -123,43 +122,6 @@ export default function Navbar() {
 
         {/* Action Buttons & Hamburger */}
         <div className="flex items-center gap-2 md:gap-3">
-          {user ? (
-            <>
-              {user.role === 'admin' && (
-                <Link
-                  href="/admin"
-                  className="flex items-center gap-1 text-xs uppercase font-mono tracking-widest text-purple-400 border border-purple-500/30 hover:border-purple-400 bg-purple-500/10 px-3 py-1.5 rounded-full transition-all duration-300"
-                >
-                  <FiUserCheck className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Dashboard</span>
-                </Link>
-              )}
-              <span className="hidden lg:inline text-xs font-mono text-gray-400">
-                Hi, {user.name.split(' ')[0]}
-              </span>
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-1 text-xs uppercase font-mono tracking-widest text-red-400 border border-red-500/30 hover:border-red-400 bg-red-500/10 px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer"
-              >
-                <FiLogOut className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Logout</span>
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/login"
-                className="flex items-center gap-1 text-xs uppercase font-mono tracking-widest text-cyan-400 border border-cyan-500/30 hover:border-cyan-400 bg-cyan-500/10 px-3.5 py-1.5 rounded-full transition-all duration-300"
-              >
-                <FiLogIn className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Login</span>
-              </Link>
-              <Link
-                href="/register"
-                className="hidden sm:flex items-center gap-1 text-xs uppercase font-mono tracking-widest text-white border border-white/20 hover:border-white hover:bg-white/10 px-3.5 py-1.5 rounded-full transition-all duration-300"
-              >
-                Join CSI
-              </Link>
-            </>
-          )}
-
           {/* Hamburger Menu Toggle for Mobile */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -181,26 +143,26 @@ export default function Navbar() {
             transition={{ duration: 0.25, ease: 'easeOut' }}
             className="absolute top-20 left-4 right-4 glass-panel p-6 rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] md:hidden flex flex-col gap-4 z-40"
           >
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.path}
-                onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-3 text-sm uppercase tracking-wider font-mono text-gray-300 hover:text-cyan-400 py-2 border-b border-white/5"
-              >
-                {item.icon}
-                {item.name}
-              </a>
-            ))}
-            {!user && (
-              <Link
-                href="/register"
-                onClick={() => setMenuOpen(false)}
-                className="flex items-center justify-center gap-1.5 text-xs uppercase font-mono tracking-widest text-white border border-white/20 py-2.5 rounded-full mt-2 hover:bg-white/10 transition-all"
-              >
-                Join CSI
-              </Link>
-            )}
+            {navItems.map((item) => {
+              const isAnchor = item.path.startsWith('#');
+              const isActive = isAnchor 
+                ? activeSection === item.path 
+                : (pathname === item.path && activeSection === '');
+
+              return (
+                <a
+                  key={item.name}
+                  href={item.path}
+                  onClick={() => setMenuOpen(false)}
+                  className={`flex items-center gap-3 text-sm uppercase tracking-wider font-mono py-2 border-b border-white/5 transition-all ${
+                    isActive ? 'text-cyan-400 font-bold' : 'text-gray-300 hover:text-cyan-400'
+                  }`}
+                >
+                  {item.icon}
+                  {item.name}
+                </a>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

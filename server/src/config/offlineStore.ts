@@ -33,6 +33,17 @@ export const initOfflineStore = async () => {
   // Seed team
   const teamList = [
     {
+      _id: 'team_002',
+      name: 'Prof. U. M. Kalshetti',
+      designation: 'HOD (Computer Department)',
+      category: 'coordinator',
+      department: 'Computer Department',
+      year: 'Staff',
+      photoUrl: '/team/page_4_img_2.jpeg',
+      linkedinUrl: 'https://www.linkedin.com/in/urmila-kalshetti-3507669a/',
+      order: 1
+    },
+    {
       _id: 'team_001',
       name: 'Dr. S. H. Patil',
       designation: 'Faculty Coordinator',
@@ -40,20 +51,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'Staff',
       photoUrl: '/team/page_4_img_1.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 1
-    },
-    {
-      _id: 'team_002',
-      name: 'Prof. U. M. Kalshetti',
-      designation: 'HOD (Computer Department)',
-      category: 'coordinator',
-      department: 'Computer Department',
-      year: 'Staff',
-      photoUrl: '/placeholder.png',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
+      linkedinUrl: 'https://www.linkedin.com/in/dr-seema-patil-22b704325/',
       order: 2
     },
     {
@@ -64,9 +62,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'B.E',
       photoUrl: '/team/page_3_img_1.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 3
+      linkedinUrl: 'https://www.linkedin.com/in/gauri-kharad-136365298/',
     },
     {
       _id: 'team_004',
@@ -76,9 +72,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'T.E',
       photoUrl: '/team/page_5_img_1.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 4
+      linkedinUrl: 'https://www.linkedin.com/in/pratikabankar/',
     },
     {
       _id: 'team_005',
@@ -88,9 +82,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_6_img_1.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 5
+      linkedinUrl: 'https://www.linkedin.com/in/nehal-rawool-461602417/',
     },
     {
       _id: 'team_006',
@@ -100,9 +92,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_6_img_2.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 6
+      linkedinUrl: 'https://www.linkedin.com/in/vedant-patil-286944382/',
     },
     {
       _id: 'team_007',
@@ -112,21 +102,17 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_2_img_1.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 7
+      linkedinUrl: 'https://www.linkedin.com/in/shreyasi-jadhao-167427384/',
     },
     {
       _id: 'team_008',
-      name: 'Sakshi Thange',
+      name: 'Sharvee Kulkarni',
       designation: 'Design Head',
       category: 'design',
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_2_img_2.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 8
+      linkedinUrl: 'https://www.linkedin.com/in/sharvee-kulkarni-635a5a391/',
     },
     {
       _id: 'team_009',
@@ -136,9 +122,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_1_img_1.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 9
+      linkedinUrl: 'https://www.linkedin.com/in/bsalil/',
     },
     {
       _id: 'team_010',
@@ -148,9 +132,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_1_img_2.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 10
+      linkedinUrl: 'https://www.linkedin.com/in/bhumika-gote-455030386/',
     },
     {
       _id: 'team_011',
@@ -160,9 +142,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_7_img_1.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 11
+      linkedinUrl: 'https://www.linkedin.com/in/meet-shrishrimal-237a8441a/',
     },
     {
       _id: 'team_012',
@@ -172,9 +152,7 @@ export const initOfflineStore = async () => {
       department: 'Computer Department',
       year: 'S.Y Btech',
       photoUrl: '/team/page_7_img_2.jpeg',
-      linkedinUrl: 'https://linkedin.com',
-      githubUrl: 'https://github.com',
-      order: 12
+      linkedinUrl: 'https://www.linkedin.com/in/om-kashid-880935397/',
     }
   ];
   offlineTeam.push(...teamList);

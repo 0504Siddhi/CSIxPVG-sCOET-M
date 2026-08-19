@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { FiArrowRight, FiGithub, FiLinkedin, FiCalendar, FiMapPin, FiCheck, FiCpu, FiUsers, FiZap, FiTarget } from 'react-icons/fi';
+import { FiArrowRight, FiGithub, FiLinkedin, FiCalendar, FiMapPin, FiCheck, FiCpu, FiUsers, FiZap, FiTarget, FiMail, FiInstagram } from 'react-icons/fi';
 import Loader from '@/components/Loader';
 import NetworkGlobe from '@/components/NetworkGlobe';
 
@@ -50,6 +50,16 @@ const BACKEND_URL = 'http://localhost:5000';
 
 const FALLBACK_TEAM: TeamMember[] = [
   {
+    _id: 'team_002',
+    name: 'Prof. U. M. Kalshetti',
+    designation: 'HOD (Computer Department)',
+    category: 'coordinator',
+    department: 'Computer Department',
+    year: 'Staff',
+    photoUrl: '/team/page_4_img_2.jpeg',
+    linkedinUrl: 'https://www.linkedin.com/in/urmila-kalshetti-3507669a/'
+  },
+  {
     _id: 'team_001',
     name: 'Dr. S. H. Patil',
     designation: 'Faculty Coordinator',
@@ -57,19 +67,7 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'Staff',
     photoUrl: '/team/page_4_img_1.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
-  },
-  {
-    _id: 'team_002',
-    name: 'Prof. U. M. Kalshetti',
-    designation: 'HOD (Computer Department)',
-    category: 'coordinator',
-    department: 'Computer Department',
-    year: 'Staff',
-    photoUrl: '/placeholder.png',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: 'https://www.linkedin.com/in/dr-seema-patil-22b704325/'
   },
   {
     _id: 'team_003',
@@ -79,7 +77,7 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'B.E',
     photoUrl: '/team/page_3_img_1.jpeg',
-    linkedinUrl: 'https://linkedin.com',
+    linkedinUrl: 'https://www.linkedin.com/in/gauri-kharad-136365298/',
     githubUrl: 'https://github.com'
   },
   {
@@ -90,7 +88,7 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'T.E',
     photoUrl: '/team/page_5_img_1.jpeg',
-    linkedinUrl: 'https://linkedin.com',
+    linkedinUrl: 'https://www.linkedin.com/in/pratikabankar/',
     githubUrl: 'https://github.com'
   },
   {
@@ -101,8 +99,8 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_6_img_1.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: ' https://www.linkedin.com/in/nehal-rawool-461602417/',
+    githubUrl: 'https://github.com/nehalrawool'
   },
   {
     _id: 'team_006',
@@ -112,8 +110,8 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_6_img_2.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: 'https://www.linkedin.com/in/vedant-patil-286944382/',
+    githubUrl: 'https://github.com/VedantPatil24-coder'
   },
   {
     _id: 'team_007',
@@ -123,19 +121,19 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_2_img_1.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: 'https://www.linkedin.com/in/shreyasi-jadhao-167427384/',
+    githubUrl: 'https://github.com/shreyaasijadhao'
   },
   {
     _id: 'team_008',
-    name: 'Sakshi Thange',
+    name: 'Sharvee Kulkarni',
     designation: 'Design Head',
     category: 'design',
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_2_img_2.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: 'https://www.linkedin.com/in/sharvee-kulkarni-635a5a391/',
+    githubUrl: 'https://github.com/SharveeK10'
   },
   {
     _id: 'team_009',
@@ -145,8 +143,8 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_1_img_1.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: 'https://www.linkedin.com/in/bsalil/',
+    githubUrl: 'https://github.com/bs4lil'
   },
   {
     _id: 'team_010',
@@ -156,8 +154,8 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_1_img_2.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: ' https://www.linkedin.com/in/bhumika-gote-455030386/',
+    githubUrl: 'https://github.com/Bhumika257'
   },
   {
     _id: 'team_011',
@@ -167,8 +165,8 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_7_img_1.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: ' https://www.linkedin.com/in/meet-shrishrimal-237a8441a/',
+    githubUrl: 'https://github.com/meetshrishrimal70-afk'
   },
   {
     _id: 'team_012',
@@ -178,20 +176,20 @@ const FALLBACK_TEAM: TeamMember[] = [
     department: 'Computer Department',
     year: 'S.Y Btech',
     photoUrl: '/team/page_7_img_2.jpeg',
-    linkedinUrl: 'https://linkedin.com',
-    githubUrl: 'https://github.com'
+    linkedinUrl: 'https://www.linkedin.com/in/om-kashid-880935397/',
+    githubUrl: 'https://github.com/omkashid96'
   }
 ];
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
-  
+
   // Dynamic state loaded from backend with robust local fallbacks
   const [team, setTeam] = useState<TeamMember[]>(FALLBACK_TEAM);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [news, setNews] = useState<NewsItem[]>([]);
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>([]);
-  
+
   // Registration feedback status map: { eventId: boolean }
   const [registeredEvents, setRegisteredEvents] = useState<{ [key: string]: boolean }>({});
 
@@ -206,13 +204,10 @@ export default function Home() {
 
   // Extraordinary Parallax scroll-linked effects
   const scaleHero = useTransform(scrollY, [0, 1000], [1, 0.90]);
-  const rotateHero = useTransform(scrollY, [0, 1000], [0, -2.5]);
-  const opacityHero = useTransform(scrollY, [0, 700], [1, 0]);
-  const skewHero = useTransform(scrollY, [0, 1000], [0, 2]);
+  const opacityHero = useTransform(scrollY, [0, 350], [1, 0]);
 
-  const rotateAbout = useTransform(scrollY, [100, 1500], [-1.5, 1.5]);
   const scaleAbout = useTransform(scrollY, [100, 1500], [0.98, 1.02]);
-  const skewAbout = useTransform(scrollY, [100, 1500], [1, -1]);
+  const opacityAbout = useTransform(scrollY, [200, 450], [0, 1]);
 
   const scaleNews = useTransform(scrollY, [200, 2000], [0.97, 1.01]);
   const rotateNews = useTransform(scrollY, [200, 2000], [1, -0.5]);
@@ -289,7 +284,7 @@ export default function Home() {
         className="glass-panel p-6 rounded-2xl border border-white/5 flex flex-col items-center text-center transition-all duration-300 ease-out group hover:border-cyan-500/30 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)] relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-cyan-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-        
+
         {/* Avatar wrap */}
         <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-cyan-500/30 mb-4 bg-black/40 p-0.5 group-hover:border-cyan-400 transition-colors duration-300">
           <img
@@ -352,22 +347,22 @@ export default function Home() {
         <Loader onComplete={() => setShowIntro(false)} />
       ) : (
         <main className="min-h-screen relative overflow-hidden bg-[#030303]">
-          
+
           {/* Cyber backgrounds */}
           <motion.div style={{ y: yBgGrid }} className="absolute inset-0 cyber-grid-bg opacity-30 z-0 pointer-events-none" />
-          
+
           {/* Ambient Glow Orbs */}
           <div className="glow-aura w-[500px] h-[500px] bg-cyan-500/10 top-[-10%] left-[-10%]" />
           <div className="glow-aura w-[600px] h-[600px] bg-purple-500/10 bottom-[20%] right-[-10%]" />
 
           {/* 1. HERO SECTION */}
-          <section className="relative min-h-screen flex flex-col items-center justify-center z-10 px-6 pt-24 pb-12 overflow-hidden">
+          <section className="relative min-h-screen flex flex-col items-center justify-center z-10 px-6 pt-24 pb-12 overflow-hidden bg-[#030303]">
             <motion.div style={{ y: yGlobe }} className="absolute inset-0 z-0 pointer-events-none">
               <NetworkGlobe />
             </motion.div>
-            
+
             {/* Top Flyer Badges */}
-            <motion.div 
+            <motion.div
               style={{ y: yGlobe, opacity: opacityHero }}
               className="flex justify-between items-center w-full max-w-5xl mb-8 relative z-20"
             >
@@ -376,7 +371,7 @@ export default function Home() {
                 <img src="/logo.png" alt="PVG Seal" className="w-[82%] h-[82%] object-contain rounded-full" />
               </div>
               {/* CSI Badge */}
-              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border border-cyan-500/30 flex items-center justify-center bg-white shadow-[0_0_15px_rgba(0,240,255,0.25)] animate-pulse">
+              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border border-cyan-500/30 flex items-center justify-center bg-white shadow-[0_0_15px_rgba(0,240,255,0.25)]">
                 <img src="/csi_logo.png" alt="CSI Logo" className="w-[82%] h-[82%] object-contain rounded-full" />
               </div>
             </motion.div>
@@ -386,20 +381,18 @@ export default function Home() {
               style={{
                 y: yGlobe,
                 scale: scaleHero,
-                rotate: rotateHero,
-                opacity: opacityHero,
-                skewX: skewHero
+                opacity: opacityHero
               }}
               className="max-w-5xl mx-auto text-center relative z-20 flex flex-col items-center"
             >
               <h1 className="cyber-font text-3xl sm:text-5xl md:text-6xl font-black tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-200 to-cyan-300 pb-2">
                 PUNE VIDYARTHI GRIHA&apos;S
               </h1>
-              
+
               <h2 className="text-sm sm:text-base md:text-lg font-bold text-white tracking-[0.2em] mt-2 mb-1 max-w-3xl uppercase font-sans">
                 College of Engineering, Technology & Management, Pune
               </h2>
-              
+
               <p className="text-[10px] sm:text-xs text-cyan-300/80 font-mono tracking-wider italic mb-8 max-w-2xl px-4">
                 (An Autonomous Institute Affiliated to Savitribai Phule Pune University, NAAC Grade &apos;A&apos; Cycle-3)
               </p>
@@ -412,7 +405,7 @@ export default function Home() {
                   CSI STUDENT CHAPTER
                 </h3>
                 <p className="text-[10px] md:text-xs text-cyan-400 tracking-[0.4em] font-mono mt-1.5 uppercase">
-                  — PVG COET —
+                  — PVG COET&M —
                 </p>
               </div>
 
@@ -445,10 +438,10 @@ export default function Home() {
               {/* CTA Buttons */}
               <div className="mt-10 flex flex-wrap gap-4 justify-center">
                 <a
-                  href="/register"
+                  href="#events"
                   className="px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium rounded-full shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all duration-300 transform hover:scale-105 flex items-center gap-2 text-base cyber-font"
                 >
-                  Join CSI <FiArrowRight />
+                  Explore Events <FiArrowRight />
                 </a>
                 <a
                   href="#about"
@@ -457,34 +450,33 @@ export default function Home() {
                   Explore Chapter
                 </a>
               </div>
+
+              {/* Scroll Indicator */}
+              <div className="mt-8 animate-bounce opacity-65 flex flex-col items-center">
+                <span className="text-xs text-gray-500 uppercase tracking-widest font-mono mb-1">Scroll to Travel</span>
+                <div className="w-1 h-6 bg-gradient-to-b from-cyan-400 to-purple-500 rounded-full" />
+              </div>
             </motion.div>
-            
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-65 flex flex-col items-center">
-              <span className="text-xs text-gray-500 uppercase tracking-widest font-mono mb-1">Scroll to Travel</span>
-              <div className="w-1 h-6 bg-gradient-to-b from-cyan-400 to-purple-500 rounded-full" />
-            </div>
           </section>
 
           {/* 2. ABOUT US SECTION */}
-          <motion.section 
-            id="about" 
-            style={{ 
+          <motion.section
+            id="about"
+            style={{
               y: yAbout,
-              rotate: rotateAbout,
               scale: scaleAbout,
-              skewX: skewAbout
-            }} 
+              opacity: opacityAbout
+            }}
             className="relative z-10 py-24 px-6 max-w-7xl mx-auto"
           >
             {/* Holographic Scroll Tunnel Visuals */}
             <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[300px] border border-cyan-500/5 rounded-full pointer-events-none skew-y-12 animate-pulse" />
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <span className="text-cyan-400 font-mono text-sm uppercase tracking-widest block mb-2">// Digital Headquarters</span>
+                <span className="text-cyan-400 font-mono text-sm uppercase tracking-widest block mb-2"></span>
                 <h2 className="cyber-font text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-wide mb-6">
-                  ABOUT CSI COET
+                  ABOUT CSI & PVG's COET&M
                 </h2>
                 <div className="space-y-6 text-gray-300 text-base sm:text-lg lg:text-[19px] leading-relaxed font-sans font-normal">
                   <p>
@@ -513,24 +505,25 @@ export default function Home() {
                 <div className="space-y-6 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[1px] before:bg-cyan-500/20">
                   <div className="relative pl-8">
                     <div className="absolute left-[3px] top-1.5 w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#00f0ff]" />
-                    <span className="text-xs sm:text-sm text-cyan-400 font-mono">July 2026</span>
+                    <span className="text-xs sm:text-sm text-cyan-400 font-mono">August 2026</span>
                     <h4 className="text-base sm:text-lg font-bold text-white mt-0.5">Chapter Inauguration</h4>
-                    <p className="text-sm sm:text-base text-gray-400 mt-1.5">Officially established the student chapter with 150+ founding members under Department of Computer Engineering guidance.</p>
+                    <p className="text-sm sm:text-base text-gray-400 mt-1.5">Officially establishing the student chapter with 150+ founding members under Department of Computer Engineering guidance.</p>
                   </div>
                   <div className="relative pl-8">
                     <div className="absolute left-[3px] top-1.5 w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_8px_#bd00ff]" />
-                    <span className="text-xs sm:text-sm text-purple-400 font-mono">August 2026</span>
-                    <h4 className="text-base sm:text-lg font-bold text-white mt-0.5">Digital Headquarters Launch</h4>
-                    <p className="text-sm sm:text-base text-gray-400 mt-1.5">Unveiled the futuristic digital headquarters with interactive Web Audio synth and dynamic CMS capabilities.</p>
+                    <span className="text-xs sm:text-sm text-purple-400 font-mono">September 2026</span>
+                    <h4 className="text-base sm:text-lg font-bold text-white mt-0.5">Syntax Sweep</h4>
+                    <p className="text-sm sm:text-base text-gray-400 mt-1.5">250 lines of broken code. One ticking clock. Zero mercy.
+Hunt the bugs, patch the chaos, and ship it clean before time runs out. Only the sharpest debuggers walk away champions.</p>
                   </div>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/5 text-center">
                   <a
-                    href="/register"
+                    href="#events"
                     className="inline-flex items-center gap-1.5 text-sm sm:text-base text-cyan-400 hover:text-cyan-300 font-mono uppercase tracking-widest hover:underline"
                   >
-                    Become a member now <FiArrowRight />
+                    Explore Upcoming Events <FiArrowRight />
                   </a>
                 </div>
               </div>
@@ -538,17 +531,17 @@ export default function Home() {
           </motion.section>
 
           {/* 3. RECENT NEWS SECTION */}
-          <motion.section 
-            id="news" 
-            style={{ 
+          <motion.section
+            id="news"
+            style={{
               y: yNews,
               scale: scaleNews,
               rotate: rotateNews
-            }} 
+            }}
             className="relative z-10 py-24 px-6 max-w-7xl mx-auto"
           >
             <div className="text-center mb-16">
-              <span className="text-cyan-400 font-mono text-sm uppercase tracking-widest block mb-2">// Global Feed</span>
+              <span className="text-cyan-400 font-mono text-sm uppercase tracking-widest block mb-2"></span>
               <h2 className="cyber-font text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-wide">
                 RECENT NEWS
               </h2>
@@ -600,7 +593,7 @@ export default function Home() {
           <motion.section id="events" style={{ y: yEvents }} className="relative z-10 py-24 px-6 bg-black/40">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <span className="text-purple-400 font-mono text-sm uppercase tracking-widest block mb-2">// Space-Time Events</span>
+                <span className="text-purple-400 font-mono text-sm uppercase tracking-widest block mb-2"></span>
                 <h2 className="cyber-font text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-wide">
                   UPCOMING EVENTS
                 </h2>
@@ -623,7 +616,7 @@ export default function Home() {
                       className="glass-panel p-8 rounded-2xl border border-white/5 flex flex-col justify-between group hover:border-cyan-500/20 transition-all duration-300 relative overflow-hidden"
                     >
                       <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-400/5 rounded-full filter blur-xl" />
-                      
+
                       <div>
                         {evt.imageUrl && (
                           <div className="w-full h-48 rounded-xl overflow-hidden mb-4">
@@ -657,7 +650,7 @@ export default function Home() {
                         <span className="text-xs text-gray-400 font-mono">
                           {evt.registrationCount || 0} SEATS RESERVED
                         </span>
-                        
+
                         {registeredEvents[evt._id] ? (
                           <button className="px-4 py-2 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-sm font-mono rounded-full flex items-center gap-1.5 cursor-default">
                             <FiCheck /> Secured
@@ -681,7 +674,7 @@ export default function Home() {
           {/* 5. TESTIMONIALS SECTION */}
           <motion.section id="testimonials" style={{ y: yTestimonials }} className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <span className="text-cyan-400 font-mono text-sm uppercase tracking-widest block mb-2">// Network Reviews</span>
+              <span className="text-cyan-400 font-mono text-sm uppercase tracking-widest block mb-2"></span>
               <h2 className="cyber-font text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-wide">
                 TESTIMONIALS
               </h2>
@@ -732,7 +725,7 @@ export default function Home() {
           <motion.section id="team" style={{ y: yTeam }} className="relative z-10 py-24 px-6 bg-black/40">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <span className="text-purple-400 font-mono text-sm uppercase tracking-widest block mb-2">// Expert Network</span>
+                <span className="text-purple-400 font-mono text-sm uppercase tracking-widest block mb-2"></span>
                 <h2 className="cyber-font text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-wide">
                   MEET THE LEADERSHIP
                 </h2>
@@ -744,7 +737,7 @@ export default function Home() {
               {/* A. Faculty Coordinators */}
               {coordinators.length > 0 && (
                 <div className="mb-16">
-                  <h3 className="cyber-font text-base uppercase text-gray-400 tracking-widest text-center mb-8 border-b border-white/5 pb-2 max-w-md mx-auto">
+                  <h3 className="cyber-font text-base uppercase text-cyan-400 tracking-widest text-center mb-8 border-b border-cyan-500/10 pb-2 max-w-md mx-auto">
                     Faculty Coordinators
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 max-w-2xl mx-auto">
@@ -758,7 +751,7 @@ export default function Home() {
               {/* B. Executive Chairs (President & Vice President) */}
               {(presidents.length > 0 || vicePresidents.length > 0) && (
                 <div className="mb-16">
-                  <h3 className="cyber-font text-base uppercase text-gray-400 tracking-widest text-center mb-8 border-b border-white/5 pb-2 max-w-md mx-auto">
+                  <h3 className="cyber-font text-base uppercase text-cyan-400 tracking-widest text-center mb-8 border-b border-cyan-500/10 pb-2 max-w-md mx-auto">
                     Executive Officers
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
@@ -786,15 +779,15 @@ export default function Home() {
                 </div>
               )}
 
-              {/* D. Other Heads (Design, Publicity, Finance in separate groups) */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12">
+              {/* D. Other Heads (Design, Publicity, Finance in separate section blocks) */}
+              <div className="space-y-16 mt-16">
                 {/* Design Heads */}
                 {designHeads.length > 0 && (
                   <div>
-                    <h3 className="cyber-font text-sm uppercase text-gray-400 tracking-wider mb-6 border-b border-white/5 pb-2 text-center">
+                    <h3 className="cyber-font text-base uppercase text-cyan-400 tracking-widest text-center mb-8 border-b border-cyan-500/10 pb-2 max-w-md mx-auto">
                       Design Heads
                     </h3>
-                    <div className="grid grid-cols-1 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
                       {designHeads.map((member) => (
                         <TeamCard key={member._id} member={member} />
                       ))}
@@ -802,13 +795,13 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* Publicity Heads */}
+                {/* Event & Publicity Heads */}
                 {eventHeads.length > 0 && (
                   <div>
-                    <h3 className="cyber-font text-sm uppercase text-gray-400 tracking-wider mb-6 border-b border-white/5 pb-2 text-center">
+                    <h3 className="cyber-font text-base uppercase text-cyan-400 tracking-widest text-center mb-8 border-b border-cyan-500/10 pb-2 max-w-md mx-auto">
                       Event & Publicity Heads
                     </h3>
-                    <div className="grid grid-cols-1 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
                       {eventHeads.map((member) => (
                         <TeamCard key={member._id} member={member} />
                       ))}
@@ -819,10 +812,10 @@ export default function Home() {
                 {/* Finance Heads */}
                 {financeHeads.length > 0 && (
                   <div>
-                    <h3 className="cyber-font text-sm uppercase text-gray-400 tracking-wider mb-6 border-b border-white/5 pb-2 text-center">
+                    <h3 className="cyber-font text-base uppercase text-cyan-400 tracking-widest text-center mb-8 border-b border-cyan-500/10 pb-2 max-w-md mx-auto">
                       Finance Heads
                     </h3>
-                    <div className="grid grid-cols-1 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
                       {financeHeads.map((member) => (
                         <TeamCard key={member._id} member={member} />
                       ))}
@@ -834,13 +827,62 @@ export default function Home() {
           </motion.section>
 
           {/* FOOTER */}
-          <footer className="relative z-10 py-12 px-6 border-t border-white/5 text-center bg-black/80 backdrop-blur-sm">
-            <p className="cyber-font text-cyan-400 text-neon-cyan text-base font-bold tracking-wider mb-2">
-              COMPUTER SOCIETY OF INDIA PVG COET
-            </p>
-            <p className="text-xs text-gray-500 font-mono uppercase tracking-widest">
-              © 2026 CSI PVG COET. Crafted by CSI PVG Tech Heads.
-            </p>
+          <footer className="relative z-10 border-t border-white/10 bg-black/80 backdrop-blur-md pt-16 pb-12 px-6">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+              {/* Left Column: About Us */}
+              <div>
+                <h3 className="cyber-font text-xl font-bold text-cyan-400 tracking-wider uppercase mb-4">
+                  About Us
+                </h3>
+                <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-sans">
+                  Established in July 2026 under the department of Computer Engineering, the CSI PVG Student Chapter is the official digital epicentre of technology engineering and creation in PVG&apos;s College of Engineering and Technology, Pune. Our charter is straightforward: to transition traditional textbook engineering into dynamic technology leadership. We orchestrate intense bootcamps, high-stakes hackathons, deep coding encounters, and industrial collaborations, preparing over 150 student members to lead the future tech workspace.
+                </p>
+              </div>
+
+              {/* Right Column: Contact */}
+              <div>
+                <h3 className="cyber-font text-xl font-bold text-cyan-400 tracking-wider uppercase mb-4">
+                  Contact
+                </h3>
+                <div className="space-y-4 text-gray-300 text-sm sm:text-base font-sans">
+                  <div className="flex items-start gap-3">
+                    <FiMapPin className="text-cyan-400 w-5 h-5 mt-1 shrink-0" />
+                    <span className="leading-relaxed">
+                      Pune Vidhyarthi Griha&apos;s College Of Engineering And Technology, 44, Shiv Darshan Rd, Parvati, Nirmal Baug Colony, Vidya Nagari, Parvati Paytha, Pune, Maharashtra 411009
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <FiMail className="text-cyan-400 w-5 h-5 shrink-0" />
+                    <a href="mailto:csi_pvg@pvgcoet.ac.in" className="hover:text-cyan-400 transition-colors">
+                      csi_pvg@pvgcoet.ac.in
+                    </a>
+                  </div>
+
+                  <div className="flex items-center gap-3 pt-2">
+                    <a
+                      href="https://www.instagram.com/csi_pvg/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors font-mono text-sm"
+                    >
+                      <FiInstagram className="w-5 h-5" />
+                      <span>@csi_pvg</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Copyright / Bottom Bar */}
+            <div className="border-t border-white/5 pt-8 text-center">
+              <p className="cyber-font text-cyan-400 text-neon-cyan text-base font-bold tracking-wider mb-2">
+                COMPUTER SOCIETY OF INDIA PVG COET&M
+              </p>
+              <p className="text-xs text-gray-500 font-mono uppercase tracking-widest">
+                © 2026 CSI PVG COET&M. Crafted by CSI PVG Tech Heads.
+              </p>
+            </div>
           </footer>
         </main>
       )}

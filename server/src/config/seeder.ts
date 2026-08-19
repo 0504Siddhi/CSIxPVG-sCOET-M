@@ -31,6 +31,16 @@ export const seedDatabase = async () => {
       const teamList = [
         // Faculty Coordinators
         {
+          name: 'Prof. U. M. Kalshetti',
+          designation: 'HOD (Computer Department)',
+          category: 'coordinator',
+          department: 'Computer Department',
+          year: 'Staff',
+          photoUrl: '/team/page_4_img_2.jpeg',
+          linkedinUrl: 'https://linkedin.com',
+          order: 1
+        },
+        {
           name: 'Dr. S. H. Patil',
           designation: 'Faculty Coordinator',
           category: 'coordinator',
@@ -38,18 +48,6 @@ export const seedDatabase = async () => {
           year: 'Staff',
           photoUrl: '/team/page_4_img_1.jpeg',
           linkedinUrl: 'https://linkedin.com',
-          githubUrl: 'https://github.com',
-          order: 1
-        },
-        {
-          name: 'Prof. U. M. Kalshetti',
-          designation: 'HOD (Computer Department)',
-          category: 'coordinator',
-          department: 'Computer Department',
-          year: 'Staff',
-          photoUrl: '/placeholder.png', // No photo in PDF page 4
-          linkedinUrl: 'https://linkedin.com',
-          githubUrl: 'https://github.com',
           order: 2
         },
         // President
@@ -112,13 +110,13 @@ export const seedDatabase = async () => {
           order: 7
         },
         {
-          name: 'Sakshi Thange',
+          name: 'Sharvee Kulkarni',
           designation: 'Design Head',
           category: 'design',
           department: 'Computer Department',
           year: 'S.Y Btech',
           photoUrl: '/team/page_2_img_2.jpeg',
-          linkedinUrl: 'https://linkedin.com',
+          linkedinUrl: 'https://www.linkedin.com/in/sharvee-kulkarni-635a5a391/',
           githubUrl: 'https://github.com',
           order: 8
         },
